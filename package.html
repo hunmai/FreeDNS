@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN သုံးဖို့ စမတ်နည်းများ</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --dtac-blue: #0066cc;
+            --ais-green: #00a651;
+            --true-red: #e1251b;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --nav-primary: #8e44ad;    /* สีม่วงหลัก */
+            --nav-secondary: #9b59b6;  /* สีม่วงรอง */
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--nav-primary), var(--nav-secondary));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .card-text {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            height: 220px; /* เพิ่มความสูงของพื้นที่รูปภาพ */
+        }
+        
+        .img-thumbnail {
+            border: none;
+            border-radius: 8px;
+            padding: 0;
+            max-height: 200px; /* เพิ่มขนาดภาพสูงสุด */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover .img-thumbnail {
+            transform: scale(1.05); /* ขยายภาพเล็กน้อยเมื่อ hover */
+        }
+        
+        .provider-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .dtac-badge {
+            background-color: var(--dtac-blue);
+        }
+        
+        .ais-badge {
+            background-color: var(--ais-green);
+        }
+        
+        .true-badge {
+            background-color: var(--true-red);
+        }
+        
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid #eee;
+            padding: 10px 15px;
+        }
+        
+        .btn-dtac {
+            background-color: var(--dtac-blue);
+            color: white;
+            border: none;
+        }
+        
+        .btn-ais {
+            background-color: var(--ais-green);
+            color: white;
+            border: none;
+        }
+        
+        .btn-true {
+            background-color: var(--true-red);
+            color: white;
+            border: none;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--dtac-blue), var(--ais-green), var(--true-red));
+            border-radius: 3px;
+        }
+        
+        .card-container {
+            position: relative;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--nav-primary), var(--nav-secondary));
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .img-container {
+                height: 180px;
+            }
+            
+            .img-thumbnail {
+                max-height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-wifi mr-2"></i>VPN Internet Guide
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">ပင်မစာမျက်နှာ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">နည်းလမ်းများ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">အကြောင်းအရာ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ဆက်သွယ်ရန်</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">VPN သုံးဖို့ စမတ်နည်းများ</h1>
+            <p class="hero-subtitle">အခမဲ့အင်တာနက်သုံးစွဲနိုင်မယ့် နည်းလမ်းအမျိုးမျိုးကို ရှာဖွေလိုက်ပါ</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2 class="section-title">VPN အင်တာနက် နည်းလမ်းများ</h2>
+        
+        <div class="row">
+            <!-- Dtac Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge dtac-badge">Dtac</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/Dtac64Kbps.png" class="img-thumbnail" alt="Dtac 64Kbps">
+                        </div>
+                        <h5 class="card-title">Dtac 64Kbps VPN အင်တာနက်</h5>
+                        <p class="card-text">အရေးကြီးဆက်သွယ်ရန်အတွက် အခြေခံအခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-dtac btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ais Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge ais-badge">AIS</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/AisPlay.png" class="img-thumbnail" alt="Ais Play">
+                        </div>
+                        <h5 class="card-title">AIS Play VPN အင်တာနက်</h5>
+                        <p class="card-text">AIS Play အက်ပ်ကိုအသုံးပြုရန် အခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-ais btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ais Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge ais-badge">AIS</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/Ais64Kbps.png" class="img-thumbnail" alt="Ais 64Kbps">
+                        </div>
+                        <h5 class="card-title">AIS 64Kbps VPN အင်တာနက်</h5>
+                        <p class="card-text">အခြေခံလိုအပ်ချက်များအတွက် အခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-ais btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- True Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge true-badge">True</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/TrueVdo.png" class="img-thumbnail" alt="True Video">
+                        </div>
+                        <h5 class="card-title">True Video VPN အင်တာနက်</h5>
+                        <p class="card-text">ဗီဒီယိုကြည့်ရှုရန်အတွက် အခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-true btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- True Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge true-badge">True</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/TrueViber.png" class="img-thumbnail" alt="True Viber">
+                        </div>
+                        <h5 class="card-title">True Viber VPN အင်တာနက်</h5>
+                        <p class="card-text">Viber ကိုအသုံးပြုရန် အခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-true btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- True Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-container">
+                    <span class="provider-badge true-badge">True</span>
+                    <div class="card-body">
+                        <div class="img-container">
+                            <img src="https://raw.githubusercontent.com/hunmai/Icon/refs/heads/main/TrueTwitter.png" class="img-thumbnail" alt="True Twitter">
+                        </div>
+                        <h5 class="card-title">True Twitter VPN အင်တာနက်</h5>
+                        <p class="card-text">Twitter ကိုအသုံးပြုရန် အခမဲ့အင်တာနက်</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-true btn-block">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>VPN Internet Guide</h5>
+                    <p>VPN သုံးနိုင်မယ့် နည်းလမ်းများကို မျှဝေပေးသော ဝက်ဘ်ဆိုဒ်</p>
+                </div>
+                <div class="col-md-6 text-md-right">
+                    <div class="social-icons mb-3">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p>&copy; Package & Plans 2025 - All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
