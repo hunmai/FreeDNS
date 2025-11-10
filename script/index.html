@@ -1,1 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAN VPN Script</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, 
+                #0f0c29 0%, 
+                #302b63 25%, 
+                #24243e 50%, 
+                #2c3e50 75%, 
+                #3498db 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-attachment: fixed;
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                #ff6b6b, 
+                #4ecdc4, 
+                #45b7d1, 
+                #96ceb4, 
+                #feca57);
+            background-size: 500% 100%;
+            animation: shimmer 3s ease infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -500px 0;
+            }
+            100% {
+                background-position: 500px 0;
+            }
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ffffff, #e0e0e0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShine 3s ease infinite;
+        }
+        
+        @keyframes textShine {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 350px);
+            gap: 25px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .script-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            width: 350px;
+            height: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .script-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3, #FF9800);
+            background-size: 300% 100%;
+            animation: borderShimmer 4s ease infinite;
+        }
+        
+        @keyframes borderShimmer {
+            0% {
+                background-position: -300px 0;
+            }
+            100% {
+                background-position: 300px 0;
+            }
+        }
+        
+        .script-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .script-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 15px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        
+        .script-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.4;
+        }
+        
+        .os-icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+            flex-shrink: 0;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .copy-btn:hover::before {
+            left: 100%;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .copy-btn.copied {
+            background: linear-gradient(45deg, #2196F3, #0b7dda);
+            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.3);
+        }
+        
+        .script-content {
+            background: rgba(13, 17, 23, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #e6e6e6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: pre;
+            word-break: break-all;
+            overflow-y: auto;
+            width: 100%;
+            height: 170px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 1200px) {
+            .script-grid {
+                grid-template-columns: repeat(2, 350px);
+            }
+        }
+        
+        @media (max-width: 800px) {
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .script-container {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            header, footer {
+                max-width: 100%;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/vpnnetdee/shanvpn/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo" class="logo">
+            </div>
+            <h1>SHAN VPN Script</h1>
+            <p class="tagline">ဤ script ကို အခမဲ့ဖြန့်ဝေရန်အတွက် ဖန်တီးထားခြင်းမဟုတ်ဘဲ မည်သည့်ကုန်သွယ်မှုကိုမျှ တားမြစ်ထားသည်။ တွေ့ရှိပါက ချက်ချင်းပိတ်သိမ်းပါမည်</p>
+        </header>
+        
+        <div class="script-grid">
+            <!-- Linux Script -->
+            <div class="script-container">
+                <div class="script-header">
+                    <div class="script-title">
+                        <span class="os-icon">🤖</span>
+                        <div>
+                            OVPN SSH SSL V1<br>
+                            <small style="font-size: 0.85rem;">Supports Ubuntu:20 ✅</small>
+                        </div>
+                    </div>
+                    <button class="copy-btn" data-target="linuxScript">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                        Copy Script
+                    </button>
+                </div>
+                <div class="script-content" id="linuxScript">apt update -y && apt upgrade -y && wget https://pukangvpn.xyz/script-v1/Plus && chmod 777 Plus && ./Plus</div>
+            </div>
+            
+            <!-- Windows Script -->
+            <div class="script-container">
+                <div class="script-header">
+                    <div class="script-title">
+                        <span class="os-icon">🤖</span>
+                        <div>
+                            OVPN SSH SSL V2<br>
+                            <small style="font-size: 0.85rem;">Supports Ubuntu:22 ✅</small>
+                        </div>
+                    </div>
+                    <button class="copy-btn" data-target="windowsScript">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                        Copy Script
+                    </button>
+                </div>
+                <div class="script-content" id="windowsScript">apt update -y && apt upgrade -y && wget https://pukangvpn.xyz/script-v2/Plus && chmod 777 Plus && ./Plus</div>
+            </div>
+            
+            <!-- Android Script -->
+            <div class="script-container">
+                <div class="script-header">
+                    <div class="script-title">
+                        <span class="os-icon">🤖</span>
+                        <div>
+                            UDP Script<br>
+                            <small style="font-size: 0.85rem;">Supports Ubuntu:20-22-24 ✅</small>
+                        </div>
+                    </div>
+                    <button class="copy-btn" data-target="androidScript">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                        Copy Script
+                    </button>
+                </div>
+                <div class="script-content" id="androidScript">apt-get remove command-not-found -y && wget https://pukangvpn.xyz/udp/install_shanvpn.sh && chmod +x install_shanvpn.sh; ./install_shanvpn.sh</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>SHAN VPN &copy; 2023 - Reliable VPN Service</p>
+        </footer>
+    </div>
 
+    <script>
+        // Add event listeners to all copy buttons
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const scriptElement = document.getElementById(targetId);
+                const scriptContent = scriptElement.textContent.trim();
+                const button = this;
+                
+                // Use the Clipboard API to copy text
+                navigator.clipboard.writeText(scriptContent).then(function() {
+                    // Success feedback
+                    const originalText = button.innerHTML;
+                    button.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                        </svg>
+                        Copied!
+                    `;
+                    button.classList.add('copied');
+                    
+                    // Revert button text after 2 seconds
+                    setTimeout(function() {
+                        button.innerHTML = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy script. Please try again.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
