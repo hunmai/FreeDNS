@@ -43,6 +43,151 @@
             }
         }
         
+        /* Login Form Styles */
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #ff6b6b, 
+                #4ecdc4, 
+                #45b7d1, 
+                #96ceb4, 
+                #feca57);
+            background-size: 500% 100%;
+            animation: shimmer 3s ease infinite;
+        }
+        
+        .login-logo {
+            height: 80px;
+            width: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ffffff, #e0e0e0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShine 3s ease infinite;
+        }
+        
+        .login-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+        }
+        
+        .login-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        /* Main Content Styles (Hidden Initially) */
+        .main-content {
+            display: none;
+            width: 100%;
+        }
+        
         .container {
             max-width: 1200px;
             width: 100%;
@@ -331,94 +476,165 @@
                 max-width: 100%;
             }
             
-            .logo {
+            .logo, .login-logo {
                 height: 60px;
+            }
+            
+            .login-container {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo-container">
-                <img src="https://raw.githubusercontent.com/vpnnetdee/shanvpn/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo" class="logo">
-            </div>
-            <h1>SHAN VPN Script</h1>
-            <p class="tagline">ဤ script ကို အခမဲ့ဖြန့်ဝေရန်အတွက် ဖန်တီးထားခြင်းမဟုတ်ဘဲ မည်သည့်ကုန်သွယ်မှုကိုမျှ တားမြစ်ထားသည်။ တွေ့ရှိပါက ချက်ချင်းပိတ်သိမ်းပါမည်</p>
-        </header>
+    <!-- Login Form -->
+    <div class="login-container" id="loginContainer">
+        <img src="https://raw.githubusercontent.com/vpnnetdee/shanvpn/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo" class="login-logo">
+        <h1 class="login-title">SHAN VPN</h1>
+        <p class="login-subtitle">Please login to access VPN scripts</p>
         
-        <div class="script-grid">
-            <!-- Linux Script -->
-            <div class="script-container">
-                <div class="script-header">
-                    <div class="script-title">
-                        <span class="os-icon">🤖</span>
-                        <div>
-                            OVPN SSH SSL V1<br>
-                            <small style="font-size: 0.85rem;">Supports Ubuntu:20 ✅</small>
-                        </div>
-                    </div>
-                    <button class="copy-btn" data-target="linuxScript">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                        </svg>
-                        Copy Script
-                    </button>
-                </div>
-                <div class="script-content" id="linuxScript">apt update -y && apt upgrade -y && wget https://pukangvpn.xyz/script-v1/Plus && chmod 777 Plus && ./Plus</div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-input" placeholder="Enter your username" required>
             </div>
             
-            <!-- Windows Script -->
-            <div class="script-container">
-                <div class="script-header">
-                    <div class="script-title">
-                        <span class="os-icon">🤖</span>
-                        <div>
-                            OVPN SSH SSL V2<br>
-                            <small style="font-size: 0.85rem;">Supports Ubuntu:22 ✅</small>
-                        </div>
-                    </div>
-                    <button class="copy-btn" data-target="windowsScript">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                        </svg>
-                        Copy Script
-                    </button>
-                </div>
-                <div class="script-content" id="windowsScript">apt update -y && apt upgrade -y && wget https://pukangvpn.xyz/script-v2/Plus && chmod 777 Plus && ./Plus</div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
             </div>
             
-            <!-- Android Script -->
-            <div class="script-container">
-                <div class="script-header">
-                    <div class="script-title">
-                        <span class="os-icon">🤖</span>
-                        <div>
-                            UDP Script<br>
-                            <small style="font-size: 0.85rem;">Supports Ubuntu:20-22-24 ✅</small>
-                        </div>
-                    </div>
-                    <button class="copy-btn" data-target="androidScript">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                        </svg>
-                        Copy Script
-                    </button>
-                </div>
-                <div class="script-content" id="androidScript">apt-get remove command-not-found -y && wget https://pukangvpn.xyz/udp/install_shanvpn.sh && chmod +x install_shanvpn.sh; ./install_shanvpn.sh</div>
+            <button type="submit" class="login-btn">Login</button>
+            
+            <div class="error-message" id="errorMessage">
+                Invalid username or password. Please try again.
             </div>
+        </form>
+    </div>
+    
+    <!-- Main Content (Hidden until login) -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <header>
+                <div class="logo-container">
+                    <img src="https://raw.githubusercontent.com/vpnnetdee/shanvpn/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo" class="logo">
+                </div>
+                <h1>SHAN VPN Script</h1>
+                <p class="tagline">Fast and secure VPN solution for network connections</p>
+            </header>
+            
+            <div class="script-grid">
+                <!-- Linux Script -->
+                <div class="script-container">
+                    <div class="script-header">
+                        <div class="script-title">
+                            <span class="os-icon">🐧</span>
+                            <div>
+                                OVPN SSH SSL V1<br>
+                                <small style="font-size: 0.85rem;">Supports Ubuntu:20 ✅</small>
+                            </div>
+                        </div>
+                        <button class="copy-btn" data-target="linuxScript">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            </svg>
+                            Copy Script
+                        </button>
+                    </div>
+                    <div class="script-content" id="linuxScript">apt update -y && apt upgrade -y && wget https://hunmai.github.io/Dnstt/Plus && chmod 777 Plus && ./Plus</div>
+                </div>
+                
+                <!-- Windows Script -->
+                <div class="script-container">
+                    <div class="script-header">
+                        <div class="script-title">
+                            <span class="os-icon">🪟</span>
+                            <div>
+                                OVPN SSH SSL V2<br>
+                                <small style="font-size: 0.85rem;">Supports Ubuntu:22 ✅</small>
+                            </div>
+                        </div>
+                        <button class="copy-btn" data-target="windowsScript">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            </svg>
+                            Copy Script
+                        </button>
+                    </div>
+                    <div class="script-content" id="windowsScript">apt update -y && apt upgrade -y && wget https://pukangvpn.xyz/script-v2/Plus && chmod 777 Plus && ./Plus</div>
+                </div>
+                
+                <!-- Android Script -->
+                <div class="script-container">
+                    <div class="script-header">
+                        <div class="script-title">
+                            <span class="os-icon">🤖</span>
+                            <div>
+                                UDP Script<br>
+                                <small style="font-size: 0.85rem;">Supports Ubuntu:20-22-24 ✅</small>
+                            </div>
+                        </div>
+                        <button class="copy-btn" data-target="androidScript">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            </svg>
+                            Copy Script
+                        </button>
+                    </div>
+                    <div class="script-content" id="androidScript">snanvpn</div>
+                </div>
+            </div>
+            
+            <footer>
+                <p>SHAN VPN &copy; 2023 - Reliable VPN Service</p>
+            </footer>
         </div>
-        
-        <footer>
-            <p>SHAN VPN &copy; 2023 - Reliable VPN Service</p>
-        </footer>
     </div>
 
     <script>
-        // Add event listeners to all copy buttons
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Simple authentication (in a real app, this would be server-side)
+            if (username === 'admin' && password === 'shanvpn2023') {
+                // Hide login form and show main content
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                // Show error message
+                errorMessage.style.display = 'block';
+                
+                // Clear password field
+                document.getElementById('password').value = '';
+                
+                // Shake animation for error
+                document.getElementById('loginForm').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.getElementById('loginForm').style.animation = '';
+                }, 500);
+            }
+        });
+        
+        // Add shake animation for login errors
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Copy functionality for scripts
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
